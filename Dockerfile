@@ -13,6 +13,7 @@ COPY --from=build /app/build /app
 COPY --from=build /app/package.json /app
 COPY --from=build /app/bun.lock /app
 COPY --from=build /app/drizzle.config.ts /app
+COPY --from=build /app/drizzle /app/drizzle
 
 RUN bun install --production
 
