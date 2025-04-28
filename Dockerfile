@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN bun install
-RUN bun run build
+RUN DOCKER_ENV=building bun run build
 
 FROM oven/bun:1.2 
 WORKDIR /app
