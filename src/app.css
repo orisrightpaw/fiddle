@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-accent: var(--accent-color);
+	--color-background: var(--background-color);
+	--color-text: var(--paragraph-color);
+}
+
+@font-face {
+	font-family: 'SN Pro';
+	src: url('/fonts/SNPro/SNPro-Regular.woff2');
+	font-weight: 200;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SN Pro';
+	src: url('/fonts/SNPro/SNPro-Bold.woff2');
+	font-weight: 900;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'SN Pro';
+	src: url('/fonts/SNPro/SNPro-RegularItalic.woff2');
+	font-weight: 200;
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'SN Pro';
+	src: url('/fonts/SNPro/SNPro-BoldItalic.woff2');
+	font-weight: 900;
+	font-style: italic;
+}
+
+html,
+body {
+	background-color: var(--color-background);
+	color: var(--color-text);
+	font-family: 'SN Pro', sans-serif;
+}
+
+* {
+	@apply transition-colors;
+}

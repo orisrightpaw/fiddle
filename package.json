@@ -1,0 +1,45 @@
+{
+	"name": "cadence",
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "bun --bun run vite dev",
+		"build": "bun --bun run vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"format": "prettier --write .",
+		"lint": "prettier --check .",
+		"db:start": "docker compose up",
+		"db:push": "drizzle-kit push",
+		"db:migrate": "drizzle-kit migrate",
+		"db:studio": "drizzle-kit studio",
+		"db:seed": "bun --bun run src/lib/server/db/seed.ts"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-node": "^5.2.12",
+		"@sveltejs/kit": "^2.20.7",
+		"@sveltejs/vite-plugin-svelte": "^4.0.4",
+		"@tailwindcss/postcss": "^4.1.4",
+		"@types/bun": "^1.2.10",
+		"@types/jsonwebtoken": "^9.0.9",
+		"@types/pg": "^8.11.14",
+		"drizzle-kit": "^0.31.0",
+		"prettier": "^3.5.3",
+		"prettier-plugin-svelte": "^3.3.3",
+		"svelte": "^5.28.2",
+		"svelte-check": "^4.1.6",
+		"svelte-turnstile": "^0.10.0",
+		"tailwindcss": "^4.1.4",
+		"tsx": "^4.19.3",
+		"typescript": "^5.8.3",
+		"vite": "^5.4.18"
+	},
+	"dependencies": {
+		"drizzle-orm": "^0.43.0",
+		"jose": "^6.0.10",
+		"pg": "^8.15.5",
+		"thumbhash": "^0.1.1",
+		"zod": "^3.24.3"
+	}
+}

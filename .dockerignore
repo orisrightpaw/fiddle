@@ -1,0 +1,14 @@
+.forgejo
+.svelte-kit
+build
+data
+node_modules
+.env
+.env.example
+.gitignore
+.gitmodules
+.npmrc
+.prettierignore
+.prettierrc
+compose.yml
+README.md

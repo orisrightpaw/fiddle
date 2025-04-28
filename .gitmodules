@@ -1,0 +1,3 @@
+[submodule "static/css/styles"]
+	path = static/css/styles
+	url = https://git.snep.lol/cirro/cadence-styles.git
