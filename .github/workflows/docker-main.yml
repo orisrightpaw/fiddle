@@ -1,17 +1,18 @@
-on: [push]
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
     steps:
-      - name: Login to Forgejo Registry
+      - name: Login to GitHub Registry
         uses: docker/login-action@v3
         with:
-          registry: git.snep.lol
+          registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.PACKAGE_KEY }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -21,5 +22,5 @@ jobs:
         with:
           push: true
           tags: |
-            git.snep.lol/cirro/cadence:${{ github.sha }}
-            git.snep.lol/cirro/cadence:latest
+            ghcr.io/orisleftpaw/cadence:${{ github.sha }}
+            ghcr.io/orisleftpaw/cadence:latest
