@@ -1,14 +1,14 @@
-# Cadence
+# Fiddle
 
 > [!NOTE]  
 > This is **alpha** software, and does not represent final design, functionality or implementation decisions.
 
-**Cadence** is free (_as in freedom!_), open-source, [Fediverse](https://en.wikipedia.org/wiki/Fediverse), social media software.
+**Fiddle** is free (_as in freedom!_), open-source, [Fediverse](https://en.wikipedia.org/wiki/Fediverse), social media software.
 
 ## Deploying
 
-Cadence currently is not in a production-ready state. Multiple core components are currently missing, therefor instructions
-on how to deploy and run Cadence will not be provided. Do not contact me for assistance.
+Fiddle currently is not in a production-ready state. Multiple core components are currently missing, therefor instructions
+on how to deploy and run Fiddle will not be provided. Do not contact me for assistance.
 
 ## Credits
 
@@ -36,3 +36,5 @@ on how to deploy and run Cadence will not be provided. Do not contact me for ass
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
+
+![jimmy](https://jimmyfallonpro.net/jimmy.png)

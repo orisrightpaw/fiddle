@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<title>Cadence</title>
+	<title>Fiddle</title>
 	<link rel="stylesheet" href="/css/styles/dark.css" />
 	<link rel="preload" href="/css/styles/dark.css" as="style" />
 	<link rel="stylesheet" href="/css/remixicon.css" />
@@ -41,7 +41,7 @@
 	</div>
 	<div class="md:max-w-3xl px-2 md:px-0 flex-grow w-screen">
 		<div class="bg-zinc-800 rounded-lg my-2 py-2 px-4 flex place-content-between">
-			<a href="/home#following" class="text-2xl font-bold text-accent hover:underline">Cadence</a>
+			<a href="/home#following" class="text-2xl font-bold text-accent hover:underline">Fiddle</a>
 			<div class="my-auto flex gap-3.5">
 				{#if user.authenticated}
 					<HeaderButton href="/home#following" icon="ri-group">Following</HeaderButton>

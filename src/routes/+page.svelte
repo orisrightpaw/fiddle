@@ -10,8 +10,8 @@
 
 <div class="p-3 bg-zinc-800 rounded-lg grid gap-2">
 	<div>
-		<h1 class="font-bold text-xl">Cadence UI Demo</h1>
-		<p>This is just a demo of the planned user interface for Cadence. Design is not final.</p>
+		<h1 class="font-bold text-xl">Fiddle UI Demo</h1>
+		<p>This is just a demo of the planned user interface for Fiddle. Design is not final.</p>
 	</div>
 	<ol class="list-decimal list-inside">
 		<li>Click "Login" at the top.</li>

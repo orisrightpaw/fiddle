@@ -35,7 +35,7 @@
 			<div>
 				<h1 class="text-center text-2xl font-bold text-accent italic">Hey there!</h1>
 				<p class="mx-auto max-w-md text-center">
-					Welcome to Cadence, a music-based social media platform. We have a few rules here, so lets
+					Welcome to Fiddle, a music-based social media platform. We have a few rules here, so lets
 					get that out of the way first.
 				</p>
 			</div>

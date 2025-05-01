@@ -5,9 +5,18 @@ import { createKeys, findKeys, Keys } from './Keys';
 import { db } from '..';
 import { and, eq } from 'drizzle-orm';
 
+export const ActorTypes = t.pgEnum('ActorTypes', [
+	'Application',
+	'Group',
+	'Organization',
+	'Person',
+	'Service'
+]);
+
 export const Actors = table('actors', {
 	// https://www.w3.org/TR/activitypub/#actor-objects
 	id: t.text().primaryKey(),
+	type: ActorTypes().default('Person'),
 	preferredUsername: t.text().notNull(),
 	name: t.text(),
 	summary: t.text(),
@@ -15,7 +24,8 @@ export const Actors = table('actors', {
 		.text()
 		.notNull()
 		.references(() => Keys.id),
-	// Cadence
+	created: t.date().notNull().defaultNow(),
+	// Fiddle
 	domain: t
 		.text()
 		.notNull()

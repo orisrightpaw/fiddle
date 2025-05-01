@@ -15,7 +15,7 @@ COPY --from=build /app/bun.lock /app
 COPY --from=build /app/drizzle.config.ts /app
 COPY --from=build /app/drizzle /app/drizzle
 
-RUN bun install --production
+RUN bun install --production drizzle-kit
 
 EXPOSE 3000
 

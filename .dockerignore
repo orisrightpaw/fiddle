@@ -12,3 +12,4 @@ node_modules
 .prettierrc
 compose.yml
 README.md
+src/routes/api/v0

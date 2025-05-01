@@ -22,5 +22,5 @@ jobs:
         with:
           push: true
           tags: |
-            ghcr.io/orisrightpaw/cadence:${{ github.sha }}
-            ghcr.io/orisrightpaw/cadence:latest
+            ghcr.io/orisrightpaw/fiddle:${{ github.sha }}
+            ghcr.io/orisrightpaw/fiddle:latest
