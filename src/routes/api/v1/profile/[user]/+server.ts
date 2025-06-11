@@ -54,7 +54,7 @@ export async function GET({ params }) {
 		'https://www.w3.org/ns/activitystreams#image': {
 			'@type': 'https://www.w3.org/ns/activitystreams#Image',
 			'https://www.w3.org/ns/activitystreams#url': {
-				'@id': 'https://dev.snep.lol/img/demo/banners/fortnite.jpg'
+				'@id': 'https://social.snep.lol/img/demo/banners/fortnite.jpg'
 			}
 		}
 	});
