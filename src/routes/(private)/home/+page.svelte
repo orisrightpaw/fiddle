@@ -1,15 +1,35 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { goto } from '$app/navigation';
-	import { user } from '$lib/client/stores.svelte.js';
-
-	const { data } = $props();
-
 	import Status from '$lib/components/Status.svelte';
 
-	onMount(() => {
-		if (!user.authenticated) goto('/');
-	});
+	let postUrl = $state('');
+	let userUrl = $state('');
+	let disabled = $state(false);
+	let statuses: any[] = $state([]);
+
+	async function loadPost() {
+		if (disabled) return;
+		disabled = true;
+
+		const response = await fetch(`/api/v0/status?href=${postUrl}`);
+		const json = await response.json();
+
+		statuses.reverse();
+		statuses.push(json);
+		statuses.reverse();
+		statuses = statuses;
+
+		disabled = false;
+	}
+
+	async function loadUser() {
+		if (disabled) return;
+		disabled = true;
+
+		const response = await fetch(`/api/v0/user?href=${userUrl}`);
+		console.log(await response.json());
+
+		disabled = false;
+	}
 </script>
 
 <div class="bg-zinc-800 p-3.5 rounded-lg grid gap-2 shadow mb-2">
@@ -83,8 +103,49 @@
 	</div>
 </div>
 
+<div class="flex gap-2">
+	<div class="bg-zinc-800 p-3.5 rounded-lg grid gap-2 shadow mb-2 grow">
+		<h1 class="text-xl font-bold">Temporary post loader</h1>
+
+		<div class="grid gap-2">
+			<input
+				class="bg-zinc-900 rounded-lg p-2"
+				type="text"
+				placeholder="Post URL"
+				bind:value={postUrl}
+			/>
+			<button
+				{disabled}
+				class="text-center py-1.5 bg-accent rounded-lg font-bold w-24 cursor-pointer text-black disabled:bg-accent/50 disabled:cursor-not-allowed"
+				onclick={loadPost}
+			>
+				Fetch
+			</button>
+		</div>
+	</div>
+	<div class="bg-zinc-800 p-3.5 rounded-lg grid gap-2 shadow mb-2 grow">
+		<h1 class="text-xl font-bold">Temporary user loader</h1>
+
+		<div class="grid gap-2">
+			<input
+				class="bg-zinc-900 rounded-lg p-2"
+				type="text"
+				placeholder="User URL"
+				bind:value={userUrl}
+			/>
+			<button
+				{disabled}
+				class="text-center py-1.5 bg-accent rounded-lg font-bold w-24 cursor-pointer text-black disabled:bg-accent/50 disabled:cursor-not-allowed"
+				onclick={loadUser}
+			>
+				Fetch
+			</button>
+		</div>
+	</div>
+</div>
+
 <div class="grid gap-2">
-	{#each data.statuses as post}
-		<Status id={post.id} author={post.author} image={post.image} content={post.content}></Status>
+	{#each statuses as data}
+		<Status {data}></Status>
 	{/each}
 </div>

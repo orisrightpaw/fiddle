@@ -19,5 +19,5 @@
 	{:else}
 		<i class="ri-heart-line"></i>
 	{/if}
-	<span class="h-full">2.6K</span>
+	<span class="h-full">0</span>
 </button>

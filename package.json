@@ -14,8 +14,7 @@
 		"db:push": "drizzle-kit push",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
-		"db:studio": "drizzle-kit studio",
-		"db:seed": "bun --bun run src/lib/server/db/seed.ts"
+		"db:studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^5.2.12",
@@ -42,6 +41,7 @@
 		"jose": "^6.0.10",
 		"jsonld": "^8.3.3",
 		"pg": "^8.15.5",
+		"structured-headers": "^2.0.1",
 		"thumbhash": "^0.1.1",
 		"zod": "^3.24.3"
 	}

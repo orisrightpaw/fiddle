@@ -16,10 +16,12 @@ export const ActorTypes = t.pgEnum('ActorTypes', [
 export const Actors = table('actors', {
 	// https://www.w3.org/TR/activitypub/#actor-objects
 	id: t.text().primaryKey(),
-	type: ActorTypes().default('Person'),
+	type: ActorTypes().default('Person').notNull(),
 	preferredUsername: t.text().notNull(),
 	name: t.text(),
 	summary: t.text(),
+	url: t.text().default('https://snep.lol').notNull(),
+	icon: t.text(),
 	keys: t
 		.text()
 		.notNull()
@@ -34,7 +36,10 @@ export const Actors = table('actors', {
 
 interface CreateActorParams {
 	id: string;
+	type?: (typeof ActorTypes.enumValues)[number];
 	preferredUsername: string;
+	url: string;
+	icon?: string;
 	name: string;
 	summary: string;
 	keys: {
@@ -43,6 +48,21 @@ interface CreateActorParams {
 		private?: string;
 	};
 	domain: string;
+}
+
+interface UpdateActorParams {
+	id: string;
+	type?: (typeof ActorTypes.enumValues)[number];
+	preferredUsername?: string;
+	name?: string;
+	url?: string;
+	icon?: string;
+	summary?: string;
+	keys?: {
+		id: string;
+		public?: string;
+		private?: string;
+	};
 }
 
 interface FindActorParams {
@@ -72,8 +92,11 @@ export async function createActor(params: CreateActorParams) {
 			preferredUsername: params.preferredUsername,
 			name: params.name,
 			summary: params.summary,
+			url: params.url,
+			icon: params.icon,
 			keys: params.keys.id,
-			domain: params.domain
+			domain: params.domain,
+			type: params.type || 'Person'
 		});
 
 		return true;
@@ -105,6 +128,37 @@ export async function findActorByUsernameAndDomain(params: FindActorUADParams) {
 	} catch (e) {
 		console.log(`!! Database select failed for table Actors !!`);
 		console.log(`Actor.preferredUsername: ${params.username} & Actor.domain: ${params.domain}`);
+		console.log(e);
+		return false;
+	}
+}
+
+export async function updateActor(params: UpdateActorParams) {
+	if (params.keys)
+		await db
+			.update(Keys)
+			.set({
+				private: params.keys.private,
+				public: params.keys.public
+			})
+			.where(eq(Keys.id, params.keys.id));
+
+	try {
+		await db
+			.update(Actors)
+			.set({
+				name: params.name,
+				summary: params.summary,
+				type: params.type,
+				icon: params.icon,
+				url: params.url
+			})
+			.where(eq(Actors.id, params.id));
+
+		return true;
+	} catch (e) {
+		console.log(`!! Database update failed for table Actors !!`);
+		console.log(`Actor.id: ${params.id}`);
 		console.log(e);
 		return false;
 	}

@@ -15,5 +15,5 @@
 	{onclick}
 >
 	<i class="ri-repeat-2-line"></i>
-	<span class="h-full">100</span>
+	<span class="h-full">0</span>
 </button>

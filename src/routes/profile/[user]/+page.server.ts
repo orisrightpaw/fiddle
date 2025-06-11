@@ -7,21 +7,15 @@ export async function load({ params }) {
 
 	let actor;
 
-	if (!domain) {
-		const results = await findActorByUsernameAndDomain({ username, domain: HOST });
-		if (results === false || results.length === 0) return error(404);
+	const results = await findActorByUsernameAndDomain({ username, domain: domain || HOST });
+	if (results === false || results.length === 0) return error(404);
 
-		actor = {
-			name: results[0].name,
-			handle: results[0].preferredUsername,
-			summary: results[0].summary
-		};
-	} else
-		actor = {
-			name: 'Not Implemented',
-			handle: `${username}@${domain}`,
-			summary: 'Federation is not yet implemented.'
-		};
+	actor = {
+		name: results[0].name,
+		handle: results[0].preferredUsername,
+		summary: results[0].summary,
+		icon: results[0].icon
+	};
 
 	return { actor };
 }

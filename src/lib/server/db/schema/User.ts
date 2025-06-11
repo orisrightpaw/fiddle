@@ -13,7 +13,7 @@ import { pgTable as table } from 'drizzle-orm/pg-core';
 import * as t from 'drizzle-orm/pg-core';
 import { Actors, createActor, findActorByUsernameAndDomain } from './Actor';
 import { HOST } from '../../config';
-import { getLocalActorId, getLocalActorKeysId } from '../../activitypub/util';
+import { getLocalActorId, getLocalActorKeysId, getLocalProfilePage } from '../../activitypub/util';
 import { db } from '..';
 import { eq } from 'drizzle-orm';
 
@@ -50,6 +50,7 @@ export async function createUser(params: CreateUserParams) {
 		preferredUsername: params.username,
 		name: params.username,
 		summary: '',
+		url: getLocalProfilePage(params.username),
 		keys: { id: getLocalActorKeysId(params.username) },
 		domain: HOST
 	});

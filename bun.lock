@@ -9,6 +9,7 @@
         "jose": "^6.0.10",
         "jsonld": "^8.3.3",
         "pg": "^8.15.5",
+        "structured-headers": "^2.0.1",
         "thumbhash": "^0.1.1",
         "zod": "^3.24.3",
       },
@@ -417,6 +418,8 @@
     "source-map-support": ["source-map-support@0.5.21", "", { "dependencies": { "buffer-from": "^1.0.0", "source-map": "^0.6.0" } }, "sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w=="],
 
     "split2": ["split2@4.2.0", "", {}, "sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg=="],
+
+    "structured-headers": ["structured-headers@2.0.1", "", {}, "sha512-6Rob3q8opLyWHNCPeDFZU9CmrxOWzfvYUnOPE6SWXtcqI1DqQKx39CqKuQq+WsyuLNOkKvz5rQ/54ycAMU6qOg=="],
 
     "supports-preserve-symlinks-flag": ["supports-preserve-symlinks-flag@1.0.0", "", {}, "sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w=="],
 

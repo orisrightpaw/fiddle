@@ -1,7 +1,10 @@
+import { JWT_ACCESS_NAME, JWT_REFRESH_NAME } from '$lib/config';
+import { PUBLIC_REGISTRATION_ENABLED } from '$lib/server/config.js';
 import { createUser } from '$lib/server/db/schema/User.js';
+import { createAccessToken, createRefreshToken } from '$lib/server/jwt';
 import { verify } from '$lib/server/turnstile.js';
 import { register } from '$lib/validation.js';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { ZodError } from 'zod';
 
 export const actions = {
@@ -37,6 +40,16 @@ export const actions = {
 				}
 			});
 
+		if (!PUBLIC_REGISTRATION_ENABLED)
+			return fail(500, {
+				// THIS IS JUST A TEMPORARY ERROR, GIVE REAL REASON EVENTUALLY
+				errors: [{ key: 'username', message: 'Registration rejected by server.' }],
+				values: {
+					username: form.get('username'),
+					email: form.get('email')
+				}
+			});
+
 		const user = await createUser({
 			username: body.username,
 			email: body.email,
@@ -52,8 +65,21 @@ export const actions = {
 				}
 			});
 
-		console.log(user);
+		const access = await createAccessToken({ user: user.id });
+		const refresh = await createRefreshToken({ user: user.id, version: 0 });
 
-		return { success: true };
+		cookies.set(JWT_ACCESS_NAME, access, {
+			sameSite: 'lax',
+			expires: new Date(new Date().getTime() + 1000 * 60 * 15),
+			path: '/'
+		});
+
+		cookies.set(JWT_REFRESH_NAME, refresh, {
+			sameSite: 'lax',
+			expires: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 7),
+			path: '/'
+		});
+
+		throw redirect(302, '/home');
 	}
 };

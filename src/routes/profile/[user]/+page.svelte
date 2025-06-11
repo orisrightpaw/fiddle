@@ -13,7 +13,7 @@
 				<div class="flex h-12 gap-2 w-fit">
 					<img
 						class="rounded-full aspect-square"
-						src="/img/demo/users/tim.jpg"
+						src={data.actor.icon}
 						alt="@{data.actor.handle}'s profile icon"
 					/>
 					<div class="grid">
@@ -21,7 +21,7 @@
 							{data.actor.name}
 						</p>
 						<p class="text-white/50 leading-5 overflow-ellipsis line-clamp-1">
-							@{data.actor.handle}
+							{data.actor.handle}
 						</p>
 					</div>
 				</div>
@@ -50,12 +50,4 @@
 			</div>
 		</div>
 	</div>
-
-	{#each Array(0) as _}
-		<Status
-			id={'whatever'}
-			author={{ handle: 'fortnite', icon: '/img/demo/users/tim.jpg', name: 'Tim Sweeney' }}
-			content="Buy my games"
-		></Status>
-	{/each}
 </div>

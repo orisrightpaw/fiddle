@@ -2,7 +2,7 @@ import { pgTable as table } from 'drizzle-orm/pg-core';
 import * as t from 'drizzle-orm/pg-core';
 import { db } from '..';
 import { eq } from 'drizzle-orm';
-import { generateKeypair } from '../../crypto';
+import { generateKeyPair, KeyObject } from 'node:crypto';
 
 export const Keys = table('keys', {
 	id: t.text().primaryKey(),
@@ -20,11 +20,24 @@ interface FindKeysParams {
 	id: string;
 }
 
+export function generateKeypair(): Promise<{ publicKey: KeyObject; privateKey: KeyObject }> {
+	return new Promise((resolve, reject) => {
+		generateKeyPair('rsa', { modulusLength: 2048 }, (err, publicKey, privateKey) => {
+			if (err) return reject(err);
+			resolve({ publicKey, privateKey });
+		});
+	});
+}
+
+export function exportKeyObject(key: KeyObject) {
+	return key.export({ format: 'pem', type: 'pkcs1' }).toString('base64');
+}
+
 export async function createKeys(params: CreateKeysParams) {
 	if (!params.public) {
 		const { publicKey, privateKey } = await generateKeypair();
-		params.public = publicKey.export({ format: 'pem', type: 'pkcs1' }).toString('base64');
-		params.private = privateKey.export({ format: 'pem', type: 'pkcs1' }).toString('base64');
+		params.public = exportKeyObject(publicKey);
+		params.private = exportKeyObject(privateKey);
 	}
 
 	try {

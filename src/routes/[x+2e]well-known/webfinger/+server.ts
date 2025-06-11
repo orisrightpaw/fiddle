@@ -9,8 +9,6 @@ export async function GET({ url }) {
 
 	let username;
 
-	console.log(resource);
-
 	if (resource.startsWith('acct')) {
 		const [name, domain] = resource.split('@');
 		if (domain !== HOST) throw error(400, 'Bad Request');
@@ -24,8 +22,6 @@ export async function GET({ url }) {
 			throw error(400, 'Bad Request');
 		}
 	} else throw error(400, 'Bad Request');
-
-	console.log(username);
 
 	const user = await findActorByUsernameAndDomain({ username, domain: HOST });
 	if (user === false || user.length === 0) throw error(404, 'Not Found');

@@ -1,34 +1,22 @@
-import { JWT_ACCESS_NAME, JWT_REFRESH_NAME } from '$lib/config';
-import { createAccessToken, verifyAccessToken, verifyRefreshToken } from '$lib/server/jwt';
+import { getInstanceActorIds } from '$lib/server/activitypub/instance';
+import { CONTENT_TYPES } from '$lib/server/activitypub/util';
+import { handleUserAuth } from '$lib/server/auth';
+import { draftSign, draftVerify } from '$lib/server/crypto';
+import { error } from '@sveltejs/kit';
+import { parseDictionary } from 'structured-headers';
 
 export async function handle({ event, resolve }) {
-	const accessToken = event.cookies.get(JWT_ACCESS_NAME);
-	const refreshToken = event.cookies.get(JWT_REFRESH_NAME);
+	await handleUserAuth();
 
-	let user: null | { id: string } = null;
-
-	if (accessToken) {
-		const access = await verifyAccessToken(accessToken).catch((_): false => false);
-		if (access === false) event.cookies.delete(JWT_ACCESS_NAME, { path: '/' });
-		else user = { id: access.payload.user as string };
+	// TODO: THIS IS NOT SAFE can bypass by using a bogus content type
+	if (
+		CONTENT_TYPES.includes(event.request.headers.get('Content-Type')!) &&
+		event.request.url !== (await getInstanceActorIds()).actor
+	) {
+		const verified = await draftVerify({ request: event.request }).catch((_: Error) => _);
+		if (verified instanceof Error) throw error(401, verified.message);
+		if (!verified) throw error(401, 'Unauthorized');
 	}
-
-	if (refreshToken) {
-		const refresh = await verifyRefreshToken(refreshToken).catch((_): false => false);
-		if (refresh === false) event.cookies.delete(JWT_REFRESH_NAME, { path: '/' });
-		else
-			event.cookies.set(
-				JWT_ACCESS_NAME,
-				await createAccessToken({ user: refresh.payload.user as string }),
-				{
-					sameSite: 'lax',
-					expires: new Date(new Date().getTime() + 1000 * 60 * 15),
-					path: '/'
-				}
-			);
-	}
-
-	if (user) event.locals.user = user;
 
 	const response = await resolve(event);
 	console.log(event.getClientAddress(), response.status, event.request.url);
@@ -37,4 +25,13 @@ export async function handle({ event, resolve }) {
 
 export async function handleError({ error, status }) {
 	if (status !== 404) console.log(error);
+}
+
+export async function handleFetch({ request, fetch }) {
+	if (!request.headers.has('Signature')) return fetch(request);
+	const dictionary = parseDictionary(request.headers.get('Signature')!);
+	const keyid = dictionary.get('keyid')?.[0];
+	if (typeof keyid !== 'string') return fetch(request);
+
+	return fetch(await draftSign({ keyid, request }));
 }
