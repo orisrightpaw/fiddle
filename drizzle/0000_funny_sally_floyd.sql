@@ -1,9 +1,13 @@
+CREATE TYPE "public"."ActivityTypes" AS ENUM('Accept', 'Add', 'Announce', 'Arrive', 'Block', 'Create', 'Delete', 'Dislike', 'Flag', 'Follow', 'Ignore', 'Invite', 'Join', 'Leave', 'Like', 'Listen', 'Move', 'Offer', 'Question', 'Reject', 'Read', 'Remove', 'TentativeReject', 'TentativeAccept', 'Travel', 'Undo', 'Update', 'View');--> statement-breakpoint
+CREATE TYPE "public"."ActorTypes" AS ENUM('Application', 'Group', 'Organization', 'Person', 'Service');--> statement-breakpoint
 CREATE TABLE "actors" (
 	"id" text PRIMARY KEY NOT NULL,
+	"type" "ActorTypes" DEFAULT 'Person',
 	"preferredUsername" text NOT NULL,
 	"name" text,
 	"summary" text,
 	"keys" text NOT NULL,
+	"created" date DEFAULT now() NOT NULL,
 	"domain" text NOT NULL
 );
 --> statement-breakpoint

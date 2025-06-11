@@ -1,4 +1,0 @@
-CREATE TYPE "public"."ActivityTypes" AS ENUM('Accept', 'Add', 'Announce', 'Arrive', 'Block', 'Create', 'Delete', 'Dislike', 'Flag', 'Follow', 'Ignore', 'Invite', 'Join', 'Leave', 'Like', 'Listen', 'Move', 'Offer', 'Question', 'Reject', 'Read', 'Remove', 'TentativeReject', 'TentativeAccept', 'Travel', 'Undo', 'Update', 'View');--> statement-breakpoint
-CREATE TYPE "public"."ActorTypes" AS ENUM('Application', 'Group', 'Organization', 'Person', 'Service');--> statement-breakpoint
-ALTER TABLE "actors" ADD COLUMN "type" "ActorTypes" DEFAULT 'Person';--> statement-breakpoint
-ALTER TABLE "actors" ADD COLUMN "created" date DEFAULT now() NOT NULL;

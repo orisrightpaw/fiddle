@@ -1,5 +1,5 @@
 {
-  "id": "afea6117-4280-4117-95a0-fceb31173a44",
+  "id": "fc098537-f64d-4eda-aae6-a6ce8c95c08d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -13,6 +13,14 @@
           "type": "text",
           "primaryKey": true,
           "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "ActorTypes",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'Person'"
         },
         "preferredUsername": {
           "name": "preferredUsername",
@@ -37,6 +45,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "created": {
+          "name": "created",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
         },
         "domain": {
           "name": "domain",
@@ -191,7 +206,53 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.ActivityTypes": {
+      "name": "ActivityTypes",
+      "schema": "public",
+      "values": [
+        "Accept",
+        "Add",
+        "Announce",
+        "Arrive",
+        "Block",
+        "Create",
+        "Delete",
+        "Dislike",
+        "Flag",
+        "Follow",
+        "Ignore",
+        "Invite",
+        "Join",
+        "Leave",
+        "Like",
+        "Listen",
+        "Move",
+        "Offer",
+        "Question",
+        "Reject",
+        "Read",
+        "Remove",
+        "TentativeReject",
+        "TentativeAccept",
+        "Travel",
+        "Undo",
+        "Update",
+        "View"
+      ]
+    },
+    "public.ActorTypes": {
+      "name": "ActorTypes",
+      "schema": "public",
+      "values": [
+        "Application",
+        "Group",
+        "Organization",
+        "Person",
+        "Service"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},
