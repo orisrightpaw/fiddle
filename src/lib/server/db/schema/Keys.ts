@@ -23,8 +23,8 @@ interface FindKeysParams {
 export async function createKeys(params: CreateKeysParams) {
 	if (!params.public) {
 		const { publicKey, privateKey } = await generateKeypair();
-		params.public = publicKey.export().toString('base64');
-		params.private = privateKey.export().toString('base64');
+		params.public = publicKey.export({ format: 'pem', type: 'pkcs1' }).toString('base64');
+		params.private = privateKey.export({ format: 'pem', type: 'pkcs1' }).toString('base64');
 	}
 
 	try {
