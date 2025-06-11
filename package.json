@@ -25,7 +25,6 @@
 		"@types/jsonld": "^1.5.15",
 		"@types/jsonwebtoken": "^9.0.9",
 		"@types/pg": "^8.11.14",
-		"drizzle-kit": "^0.31.0",
 		"prettier": "^3.5.3",
 		"prettier-plugin-svelte": "^3.3.3",
 		"svelte": "^5.0.0",
@@ -37,6 +36,7 @@
 		"vite": "^6.2.6"
 	},
 	"dependencies": {
+		"drizzle-kit": "^0.31.1",
 		"drizzle-orm": "^0.43.0",
 		"jose": "^6.0.10",
 		"jsonld": "^8.3.3",
