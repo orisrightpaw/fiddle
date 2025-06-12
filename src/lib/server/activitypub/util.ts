@@ -22,14 +22,19 @@ export const CONTENT_TYPES = [
  */
 export function isASRequest(request: Request) {
 	const contentType = request.headers.get('Content-Type')!;
-	if (CONTENT_TYPES.includes(contentType)) return true;
-
 	const accept = request.headers.get('Accept');
-	if (!accept) return false;
-	const acceptedTypes = accept.split(',');
 
-	for (let type of acceptedTypes) {
-		if (CONTENT_TYPES.includes(type.trim())) return true;
+	if (CONTENT_TYPES.includes(contentType) && request.method === 'POST') {
+		console.log(`Incoming request is AS based on Content-Type '${contentType}'`);
+		return true;
+	}
+	if (accept === null || request.method !== 'GET') return false;
+
+	for (let type of accept.split(',')) {
+		if (CONTENT_TYPES.includes(type.trim())) {
+			console.log(`Incoming request is AS based on Accept '${accept}'`);
+			return true;
+		}
 	}
 
 	return false;

@@ -6,6 +6,7 @@ import { error } from '@sveltejs/kit';
 import { parseDictionary } from 'structured-headers';
 
 export async function handle({ event, resolve }) {
+	console.log(event.getClientAddress(), 'PND', event.request.url);
 	await handleUserAuth();
 
 	// TODO: THIS IS NOT SAFE. With this method, the downstream route
@@ -14,8 +15,14 @@ export async function handle({ event, resolve }) {
 	// inbox flow, and inconsistent Signed Fetch!
 	if (isASRequest(event.request) && event.request.url !== (await getInstanceActorIds()).actor) {
 		const verified = await draftVerify({ request: event.request }).catch((_: Error) => _);
-		if (verified instanceof Error) throw error(401, verified.message);
-		if (!verified) throw error(401, 'Bad Signature');
+		if (verified instanceof Error) {
+			console.log(event.getClientAddress(), 401, event.request.url, verified.message);
+			throw error(401, verified.message);
+		}
+		if (!verified) {
+			console.log(event.getClientAddress(), 401, event.request.url, 'Bad Signature');
+			throw error(401, 'Bad Signature');
+		}
 	}
 
 	const response = await resolve(event);

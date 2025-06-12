@@ -47,10 +47,12 @@ export async function GET({ params }) {
 			'@type': 'http://www.w3.org/2001/XMLSchema#dateTime',
 			'@value': new Date(results[0].created).toISOString()
 		},
-		'https://www.w3.org/ns/activitystreams#icon': {
-			'@type': 'https://www.w3.org/ns/activitystreams#Image',
-			'https://www.w3.org/ns/activitystreams#url': { '@id': results[0].icon }
-		},
+		'https://www.w3.org/ns/activitystreams#icon': results[0].icon
+			? {
+					'@type': 'https://www.w3.org/ns/activitystreams#Image',
+					'https://www.w3.org/ns/activitystreams#url': { '@id': results[0].icon }
+				}
+			: undefined,
 		'https://www.w3.org/ns/activitystreams#image': {
 			'@type': 'https://www.w3.org/ns/activitystreams#Image',
 			'https://www.w3.org/ns/activitystreams#url': {

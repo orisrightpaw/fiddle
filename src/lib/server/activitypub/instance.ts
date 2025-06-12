@@ -46,6 +46,8 @@ export async function getInstanceActorIds() {
 export async function fetchActorAndSave(id: string, key?: string) {
 	const { fetch } = getRequestEvent();
 
+	if (!key) console.log(`Fetching Actor '${id}' as instance.`);
+
 	const [actorDocument] = await fetch(id, {
 		headers: {
 			Accept: 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"',
