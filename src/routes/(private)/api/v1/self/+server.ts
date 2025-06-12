@@ -1,3 +1,4 @@
+import { HOST } from '$lib/server/config.js';
 import { findActor } from '$lib/server/db/schema/Actor.js';
 import { findUser } from '$lib/server/db/schema/User.js';
 import { error, json } from '@sveltejs/kit';
@@ -12,6 +13,7 @@ export async function GET({ locals }) {
 	return json({
 		name: actor[0].name,
 		username: actor[0].preferredUsername,
-		email: user[0].email
+		email: user[0].email,
+		domain: HOST
 	});
 }

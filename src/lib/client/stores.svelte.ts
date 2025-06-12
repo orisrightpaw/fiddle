@@ -4,6 +4,7 @@ interface UserStore {
 		name: string;
 		username: string;
 		email: string;
+		domain: string;
 	};
 }
 

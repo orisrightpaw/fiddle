@@ -2,7 +2,6 @@
 	let { data } = $props();
 
 	import Field from '$lib/components/Layout/Field.svelte';
-	import Status from '$lib/components/Status.svelte';
 </script>
 
 <div class="grid gap-2">
@@ -14,14 +13,14 @@
 					<img
 						class="rounded-full aspect-square"
 						src={data.actor.icon}
-						alt="@{data.actor.handle}'s profile icon"
+						alt="{data.actor.preferredUsername}@{data.actor.domain}'s profile icon"
 					/>
 					<div class="grid">
 						<p class="font-bold my-auto leading-5 text-white overflow-ellipsis line-clamp-1">
 							{data.actor.name}
 						</p>
 						<p class="text-white/50 leading-5 overflow-ellipsis line-clamp-1">
-							{data.actor.handle}
+							{data.actor.preferredUsername}<span class="text-accent">{data.actor.domain}</span>
 						</p>
 					</div>
 				</div>

@@ -12,7 +12,8 @@ export async function load({ params }) {
 
 	actor = {
 		name: results[0].name,
-		handle: results[0].preferredUsername,
+		preferredUsername: results[0].preferredUsername,
+		domain: results[0].domain,
 		summary: results[0].summary,
 		icon: results[0].icon
 	};

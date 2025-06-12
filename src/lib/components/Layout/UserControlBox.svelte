@@ -16,7 +16,9 @@
 				>
 					{user.data?.name}
 				</p>
-				<p class="text-white/50 leading-5 overflow-ellipsis line-clamp-1">@{user.data?.username}</p>
+				<p class="text-white/50 leading-5 overflow-ellipsis line-clamp-1">
+					{user.data?.username}@<span class="text-accent">{user.data?.domain}</span>
+				</p>
 			</div>
 		</a>
 	</div>
