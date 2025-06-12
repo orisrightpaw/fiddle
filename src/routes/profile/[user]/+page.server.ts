@@ -1,11 +1,16 @@
-import { HOST } from '$lib/config.server';
+import { HOST, ORIGIN } from '$lib/config.server';
+import { CONTENT_TYPES } from '$lib/server/activitypub/util.js';
 import { findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
-import { error } from '@sveltejs/kit';
+import type { Actor } from '$lib/types.js';
+import { error, redirect } from '@sveltejs/kit';
 
-export async function load({ params }) {
+export async function load({ params, request }) {
+	if (CONTENT_TYPES.includes(request.headers.get('Accept')!))
+		throw redirect(302, `${ORIGIN}/api/v1/profile/${params.user}`);
+
 	const [username, domain] = params.user.split('@');
 
-	let actor;
+	let actor: Actor;
 
 	const results = await findActorByUsernameAndDomain({ username, domain: domain || HOST });
 	if (results === false || results.length === 0) return error(404);

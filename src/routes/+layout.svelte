@@ -1,13 +1,15 @@
 <script lang="ts">
 	import '../app.css';
-	let { children } = $props();
+	let { children, data } = $props();
 
 	import { user } from '$lib/client/stores.svelte';
-
 	import HeaderButton from '$lib/components/Buttons/HeaderButton.svelte';
 	import LinkButton from '$lib/components/Buttons/LinkButton.svelte';
 	import Notification from '$lib/components/Layout/Notification.svelte';
 	import UserControlBox from '$lib/components/Layout/UserControlBox.svelte';
+
+	user.state = data.state;
+	user.data = data.data;
 </script>
 
 <svelte:head>
@@ -21,14 +23,14 @@
 <div class="flex mx-auto gap-2 min-h-screen w-fit max-w-screen">
 	<div class="min-w-sm max-w-xs hidden 2xl:inline">
 		<div class="ml-2 sticky top-2">
-			{#if user.authenticated}
+			{#if user.state === 'loggedin'}
 				<div class="grid gap-2">
 					<UserControlBox></UserControlBox>
-					{#each Array(0) as _}
+					{#each Array(7) as _}
 						<Notification></Notification>
 					{/each}
 				</div>
-			{:else}
+			{:else if user.state === 'loggedout'}
 				<div class="bg-zinc-800 rounded-lg p-2">
 					<h1 class="font-bold text-white text-xl border-b border-accent/50 pb-0.5">Welcome!</h1>
 					<div class="grid gap-1.5 mt-2">
@@ -43,11 +45,11 @@
 		<div class="bg-zinc-800 rounded-lg my-2 py-2 px-4 flex place-content-between">
 			<a href="/home#following" class="text-2xl font-bold text-accent hover:underline">Fiddle</a>
 			<div class="my-auto flex gap-3.5">
-				{#if user.authenticated}
+				{#if user.state === 'loggedin'}
 					<HeaderButton href="/home#following" icon="ri-group">Following</HeaderButton>
 					<HeaderButton href="/home#local" icon="ri-home-2">Local</HeaderButton>
 					<HeaderButton href="/home#global" icon="ri-earth">Global</HeaderButton>
-				{:else}
+				{:else if user.state === 'loggedout'}
 					<HeaderButton href="/login" icon="ri-login-box">Login</HeaderButton>
 					<HeaderButton href="/register" icon="ri-user-add">Register</HeaderButton>
 				{/if}
@@ -55,7 +57,7 @@
 		</div>
 		{@render children()}
 	</div>
-	<div class="min-w-sm max-w-xs hidden xl:inline">
+	<div class="min-w-sm max-w-xs hidden xl:inline invisible">
 		<div class="bg-zinc-800 rounded-lg p-2 mr-2 sticky top-2">
 			<div class="flex gap-2">
 				<img

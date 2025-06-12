@@ -1,3 +1,4 @@
+import { fetchActorAndSave } from '$lib/server/activitypub/instance.js';
 import { findActor } from '$lib/server/db/helpers/Actor';
 import { findUser } from '$lib/server/db/helpers/User';
 import { expand } from '$lib/server/jsonld';
@@ -12,12 +13,7 @@ export async function GET({ url, fetch, locals }) {
 	const actor = await findActor({ id: user[0].actor });
 	if (!actor || actor.length === 0) return error(401, 'Unauthorized');
 
-	const response = await fetch(href, {
-		headers: {
-			Accept: 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"',
-			Signature: `keyid="${actor[0].keys}"`
-		}
-	});
+	const remoteActor = await fetchActorAndSave(href);
 
-	return json(await expand(await response.json()));
+	return json({ handle: `${remoteActor.preferredUsername}@${remoteActor.domain}` });
 }

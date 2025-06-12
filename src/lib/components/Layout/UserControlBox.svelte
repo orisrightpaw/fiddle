@@ -1,26 +1,16 @@
 <script>
 	import { user } from '$lib/client/stores.svelte';
+	import ActorImageObject from './ActorImageObject.svelte';
 </script>
 
 <div class="bg-zinc-800/50 rounded-lg">
 	<div class="bg-zinc-800 rounded-lg p-2">
-		<a href="/profile/{user.data?.username}" class="flex h-12 gap-2 group w-fit">
-			<img
-				class="rounded-full aspect-square"
-				src="/img/demo/users/tim.jpg"
-				alt="@fortnite's profile icon"
-			/>
-			<div class="grid">
-				<p
-					class="font-bold my-auto leading-5 group-hover:underline text-white overflow-ellipsis line-clamp-1"
-				>
-					{user.data?.name}
-				</p>
-				<p class="text-white/50 leading-5 overflow-ellipsis line-clamp-1">
-					{user.data?.username}@<span class="text-accent">{user.data?.domain}</span>
-				</p>
-			</div>
-		</a>
+		{#if user.data}
+			<ActorImageObject actor={user.data}></ActorImageObject>
+		{:else}
+			<h1 class="font-bold text-red-500 text-lg">User store is empty!</h1>
+			<p class="text-red-400">Please open a GitHub issue.</p>
+		{/if}
 	</div>
 	<div class="p-2 flex place-content-between text-lg">
 		<div>

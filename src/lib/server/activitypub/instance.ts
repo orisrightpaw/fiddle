@@ -58,9 +58,11 @@ export async function fetchActorAndSave(id: string, key?: string) {
 	const preferredUsername =
 		actorDocument?.['https://www.w3.org/ns/activitystreams#preferredUsername']?.[0]?.['@value'];
 	const url = actorDocument?.['https://www.w3.org/ns/activitystreams#url']?.[0]?.['@id'];
-	let summary = actorDocument?.['https://www.w3.org/ns/activitystreams#summary']?.[0]?.['@value'];
-	let name = actorDocument?.['https://www.w3.org/ns/activitystreams#name']?.[0]?.['@value'];
-	let icon =
+	const summary: string | undefined =
+		actorDocument?.['https://www.w3.org/ns/activitystreams#summary']?.[0]?.['@value'];
+	const name: string | undefined =
+		actorDocument?.['https://www.w3.org/ns/activitystreams#name']?.[0]?.['@value'];
+	const icon: string | undefined =
 		actorDocument?.['https://www.w3.org/ns/activitystreams#icon']?.[0]?.[
 			'https://www.w3.org/ns/activitystreams#url'
 		]?.[0]?.['@id'];
@@ -70,9 +72,6 @@ export async function fetchActorAndSave(id: string, key?: string) {
 	if (typeof preferredUsername !== 'string')
 		throw new Error("Actor 'preferredUsername' is invalid.");
 	if (typeof url !== 'string') throw new Error("Actor 'url' is invalid.");
-	if (typeof summary !== 'string') summary = '';
-	if (typeof name !== 'string') name = preferredUsername;
-	if (typeof icon !== 'string') icon = '';
 
 	const publicKey = actorDocument?.['https://w3id.org/security#publicKey']?.[0];
 	if (typeof publicKey !== 'object')

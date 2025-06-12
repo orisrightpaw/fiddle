@@ -2,33 +2,18 @@
 	let { data } = $props();
 
 	import Field from '$lib/components/Layout/Field.svelte';
+	import ActorImageObject from '$lib/components/Layout/ActorImageObject.svelte';
 </script>
 
 <div class="grid gap-2">
-	<div class="bg-zinc-800 rounded-lg grid gap-3">
-		<div class="relative h-[256px]">
-			<img class="rounded-lg absolute top-0" src="/img/demo/banners/fortnite.jpg" alt="" />
-			<div class="z-10 absolute top-43 left-3 rounded-lg bg-zinc-900/90 p-3">
-				<div class="flex h-12 gap-2 w-fit">
-					<img
-						class="rounded-full aspect-square"
-						src={data.actor.icon}
-						alt="{data.actor.preferredUsername}@{data.actor.domain}'s profile icon"
-					/>
-					<div class="grid">
-						<p class="font-bold my-auto leading-5 text-white overflow-ellipsis line-clamp-1">
-							{data.actor.name}
-						</p>
-						<p class="text-white/50 leading-5 overflow-ellipsis line-clamp-1">
-							{data.actor.preferredUsername}<span class="text-accent">{data.actor.domain}</span>
-						</p>
-					</div>
-				</div>
-			</div>
+	<div class="bg-zinc-800 rounded-lg grid gap-3 relative">
+		<img class="rounded-lg" src="/img/demo/banners/fortnite.jpg" alt="" />
+		<div class="z-10 w-fit absolute top-3 left-3 rounded-lg bg-zinc-900/90 p-3">
+			<ActorImageObject actor={data.actor}></ActorImageObject>
 		</div>
 		<div class="px-3 pb-3 grid">
 			{#if data.actor.summary}
-				<p class="whitespace-pre-wrap my-4">{data.actor.summary}</p>
+				<p class="whitespace-pre-wrap my-4 text-white">{data.actor.summary}</p>
 			{/if}
 			<div class="grid gap-2">
 				<div class="flex flex-wrap gap-2">

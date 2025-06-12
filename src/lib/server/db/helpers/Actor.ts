@@ -12,8 +12,8 @@ interface CreateActorParams {
 	preferredUsername: string;
 	url: string;
 	icon?: string;
-	name: string;
-	summary: string;
+	name?: string;
+	summary?: string;
 	keys: {
 		id: string;
 		public?: string;

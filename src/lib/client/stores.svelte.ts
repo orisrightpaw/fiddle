@@ -1,14 +1,16 @@
-interface UserStore {
-	authenticated: boolean;
-	data: null | {
+export interface UserStore {
+	state: 'loggedin' | 'loggedout' | 'waiting';
+	data: {
 		name: string;
-		username: string;
+		preferredUsername: string;
 		email: string;
 		domain: string;
-	};
+		icon?: string | null;
+		isCat?: boolean | null;
+	} | null;
 }
 
 export const user: UserStore = $state({
-	authenticated: false,
+	state: 'waiting',
 	data: null
 });

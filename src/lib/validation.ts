@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { EMAIL_WHITELIST } from './config';
+import { EMAIL_WHITELIST, EMAIL_WHITELIST_ENABLED } from './config';
 
 export const username = z
 	.string()
@@ -12,10 +12,10 @@ export const username = z
 export const email = z
 	.string()
 	.email('Invalid email address.')
-	.refine((_) => {
-		if (EMAIL_WHITELIST) return EMAIL_WHITELIST.includes(_.substring(_.indexOf('@')));
-		else return true;
-	}, 'Email is not whitelisted.');
+	.refine(
+		(_) => !(EMAIL_WHITELIST_ENABLED && !EMAIL_WHITELIST.includes(_.substring(_.indexOf('@')))),
+		'Email is not whitelisted.'
+	);
 
 export const password = z.string().min(8, 'Password is too short.').max(1024, 'Dude');
 

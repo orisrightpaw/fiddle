@@ -1,11 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { user } from '$lib/client/stores.svelte';
-	import { onMount } from 'svelte';
-
-	onMount(() => {
-		if (user.authenticated) goto('/home#following');
-	});
 </script>
 
 <div class="p-3 bg-zinc-800 rounded-lg grid gap-2">

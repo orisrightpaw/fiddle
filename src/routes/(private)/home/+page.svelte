@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import Status from '$lib/components/Status.svelte';
 
 	let postUrl = $state('');
@@ -26,9 +27,10 @@
 		disabled = true;
 
 		const response = await fetch(`/api/v0/user?href=${userUrl}`);
-		console.log(await response.json());
+		if (response.status !== 200) return (disabled = false);
 
-		disabled = false;
+		const { handle } = await response.json();
+		goto('/profile/' + handle);
 	}
 </script>
 
