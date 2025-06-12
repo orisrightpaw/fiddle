@@ -1,4 +1,4 @@
-import { HOST } from '$lib/server/config.js';
+import { HOST } from '$lib/config.server.js';
 import { findActor } from '$lib/server/db/helpers/Actor';
 import { findUser } from '$lib/server/db/helpers/User';
 import { error, json } from '@sveltejs/kit';

@@ -1,6 +1,6 @@
 import { createHash, createPrivateKey, createSign, createVerify } from 'node:crypto';
 import { parseDictionary, serializeDictionary } from 'structured-headers';
-import { USER_AGENT } from '$lib/server/config';
+import { USER_AGENT } from '$lib/config.server';
 import { fetchActorAndSave } from '$lib/server/activitypub/instance';
 import { findKeys } from '$lib/server/db/helpers/Keys';
 

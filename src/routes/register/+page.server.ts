@@ -1,5 +1,4 @@
-import { JWT_ACCESS_NAME, JWT_REFRESH_NAME } from '$lib/config';
-import { PUBLIC_REGISTRATION_ENABLED } from '$lib/server/config.js';
+import { JWT_ACCESS_NAME, JWT_REFRESH_NAME, REGISTRATION_ENABLED } from '$lib/config';
 import { createUser } from '$lib/server/db/helpers/User';
 import { createAccessToken, createRefreshToken } from '$lib/server/jwt';
 import { verify } from '$lib/server/turnstile.js';
@@ -40,7 +39,7 @@ export const actions = {
 				}
 			});
 
-		if (!PUBLIC_REGISTRATION_ENABLED)
+		if (!REGISTRATION_ENABLED)
 			return fail(500, {
 				// THIS IS JUST A TEMPORARY ERROR, GIVE REAL REASON EVENTUALLY
 				errors: [{ key: 'username', message: 'Registration rejected by server.' }],

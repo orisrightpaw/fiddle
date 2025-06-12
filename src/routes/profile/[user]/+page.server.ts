@@ -1,4 +1,4 @@
-import { HOST } from '$lib/server/config';
+import { HOST } from '$lib/config.server';
 import { findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
 import { error } from '@sveltejs/kit';
 

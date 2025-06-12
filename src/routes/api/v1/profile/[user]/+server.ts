@@ -1,5 +1,5 @@
 import { getLocalActorId, getLocalProfilePage } from '$lib/server/activitypub/util.js';
-import { HOST } from '$lib/server/config.js';
+import { HOST } from '$lib/config.server.js';
 import { findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
 import { findKeys } from '$lib/server/db/helpers/Keys';
 import { streamObject } from '$lib/server/jsonld/index.js';

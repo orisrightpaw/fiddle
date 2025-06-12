@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
-import { HOST } from '$lib/server/config';
+import { HOST } from '$lib/config.server';
 // Schemas
 import { Users } from '$lib/server/db/schema';
 // Helpers

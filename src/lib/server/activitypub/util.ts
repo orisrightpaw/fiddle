@@ -1,4 +1,4 @@
-import { ORIGIN } from '../config';
+import { ORIGIN } from '../../config.server';
 
 export function getLocalActorId(username: string) {
 	return `${ORIGIN}/api/v1/profile/${username}`;

@@ -1,5 +1,5 @@
 import { getLocalActorId } from '$lib/server/activitypub/util.js';
-import { HOST, ORIGIN } from '$lib/server/config';
+import { HOST, ORIGIN } from '$lib/config.server';
 import { findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
 import { error, json } from '@sveltejs/kit';
 

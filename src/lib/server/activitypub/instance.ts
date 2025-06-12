@@ -1,7 +1,7 @@
 import { expand } from 'jsonld';
 import { setTimeout } from 'node:timers/promises';
 import { getRequestEvent } from '$app/server';
-import { HOST, ORIGIN } from '$lib/server/config';
+import { HOST, ORIGIN } from '$lib/config.server';
 import { getLocalActorId, getLocalActorKeysId } from '$lib/server/activitypub/util';
 import { createActor, findActor, updateActor } from '$lib/server/db/helpers/Actor';
 import { findKeys, createKeys } from '$lib/server/db/helpers/Keys';
