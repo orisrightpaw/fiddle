@@ -1,5 +1,5 @@
-import { HOST } from '$lib/server/config.js';
-import { findActorByUsernameAndDomain } from '$lib/server/db/schema/Actor.js';
+import { HOST } from '$lib/server/config';
+import { findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {

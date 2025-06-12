@@ -1,7 +1,7 @@
 import { fetchActorAndSave } from '$lib/server/activitypub/instance.js';
 import { HOST } from '$lib/server/config.js';
-import { findActor } from '$lib/server/db/schema/Actor';
-import { findUser } from '$lib/server/db/schema/User';
+import { findActor } from '$lib/server/db/helpers/Actor';
+import { findUser } from '$lib/server/db/helpers/User';
 import { expand } from '$lib/server/jsonld';
 import { error, json } from '@sveltejs/kit';
 

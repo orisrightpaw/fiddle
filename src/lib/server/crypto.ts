@@ -1,8 +1,8 @@
 import { createHash, createPrivateKey, createSign, createVerify } from 'node:crypto';
-import { findKeys } from './db/schema/Keys';
-import { USER_AGENT } from './config';
 import { parseDictionary, serializeDictionary } from 'structured-headers';
-import { fetchActorAndSave } from './activitypub/instance';
+import { USER_AGENT } from '$lib/server/config';
+import { fetchActorAndSave } from '$lib/server/activitypub/instance';
+import { findKeys } from '$lib/server/db/helpers/Keys';
 
 export interface SignParams {
 	keyid: string;

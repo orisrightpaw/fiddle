@@ -1,7 +1,7 @@
 import { getLocalActorId, getLocalProfilePage } from '$lib/server/activitypub/util.js';
 import { HOST } from '$lib/server/config.js';
-import { findActorByUsernameAndDomain } from '$lib/server/db/schema/Actor.js';
-import { findKeys } from '$lib/server/db/schema/Keys.js';
+import { findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
+import { findKeys } from '$lib/server/db/helpers/Keys';
 import { streamObject } from '$lib/server/jsonld/index.js';
 import { error } from '@sveltejs/kit';
 

@@ -1,14 +1,9 @@
-import { pgTable as table } from 'drizzle-orm/pg-core';
-import * as t from 'drizzle-orm/pg-core';
-import { db } from '..';
+import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
 import { generateKeyPair, KeyObject } from 'node:crypto';
-
-export const Keys = table('keys', {
-	id: t.text().primaryKey(),
-	private: t.text(),
-	public: t.text().notNull()
-});
+// Schemas
+import { Keys } from '$lib/server/db/schema';
+// Helpers
 
 interface CreateKeysParams {
 	id: string;

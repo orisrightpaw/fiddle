@@ -1,6 +1,6 @@
 import { JWT_ACCESS_NAME, JWT_REFRESH_NAME } from '$lib/config';
 import { PUBLIC_REGISTRATION_ENABLED } from '$lib/server/config.js';
-import { createUser } from '$lib/server/db/schema/User.js';
+import { createUser } from '$lib/server/db/helpers/User';
 import { createAccessToken, createRefreshToken } from '$lib/server/jwt';
 import { verify } from '$lib/server/turnstile.js';
 import { register } from '$lib/validation.js';

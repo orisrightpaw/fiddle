@@ -1,10 +1,10 @@
-import { getRequestEvent } from '$app/server';
 import { expand } from 'jsonld';
-import { HOST, ORIGIN } from '../config';
-import { findActor, createActor, updateActor } from '../db/schema/Actor';
-import { findKeys, createKeys } from '../db/schema/Keys';
-import { getLocalActorId, getLocalActorKeysId } from './util';
 import { setTimeout } from 'node:timers/promises';
+import { getRequestEvent } from '$app/server';
+import { HOST, ORIGIN } from '$lib/server/config';
+import { getLocalActorId, getLocalActorKeysId } from '$lib/server/activitypub/util';
+import { createActor, findActor, updateActor } from '$lib/server/db/helpers/Actor';
+import { findKeys, createKeys } from '$lib/server/db/helpers/Keys';
 
 let INSTANCE_ACTOR_EXISTS = false;
 let INSTANCE_ACTOR_CHECK_LOCK = false;

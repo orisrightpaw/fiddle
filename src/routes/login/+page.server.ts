@@ -1,8 +1,8 @@
-import { JWT_ACCESS_NAME, JWT_REFRESH_NAME } from '$lib/config.js';
-import { findUserByEmail } from '$lib/server/db/schema/User.js';
-import { createAccessToken, createRefreshToken } from '$lib/server/jwt.js';
-import { verify } from '$lib/server/turnstile.js';
-import { login } from '$lib/validation.js';
+import { JWT_ACCESS_NAME, JWT_REFRESH_NAME } from '$lib/config';
+import { findUserByEmail } from '$lib/server/db/helpers/User';
+import { createAccessToken, createRefreshToken } from '$lib/server/jwt';
+import { verify } from '$lib/server/turnstile';
+import { login } from '$lib/validation';
 import { fail, redirect } from '@sveltejs/kit';
 import { ZodError } from 'zod';
 

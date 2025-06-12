@@ -1,38 +1,10 @@
-import { pgTable as table } from 'drizzle-orm/pg-core';
-import * as t from 'drizzle-orm/pg-core';
-import { createDomain, Domains, findDomain } from './Domain';
-import { createKeys, findKeys, Keys } from './Keys';
-import { db } from '..';
+import { db } from '$lib/server/db';
 import { and, eq } from 'drizzle-orm';
-
-export const ActorTypes = t.pgEnum('ActorTypes', [
-	'Application',
-	'Group',
-	'Organization',
-	'Person',
-	'Service'
-]);
-
-export const Actors = table('actors', {
-	// https://www.w3.org/TR/activitypub/#actor-objects
-	id: t.text().primaryKey(),
-	type: ActorTypes().default('Person').notNull(),
-	preferredUsername: t.text().notNull(),
-	name: t.text(),
-	summary: t.text(),
-	url: t.text().default('https://snep.lol').notNull(),
-	icon: t.text(),
-	keys: t
-		.text()
-		.notNull()
-		.references(() => Keys.id),
-	created: t.date().notNull().defaultNow(),
-	// Fiddle
-	domain: t
-		.text()
-		.notNull()
-		.references(() => Domains.id)
-});
+// Schemas
+import { ActorTypes, Actors, Keys } from '$lib/server/db/schema';
+// Helpers
+import { createDomain, findDomain } from '$lib/server/db/helpers/Domain';
+import { createKeys, findKeys } from '$lib/server/db/helpers/Keys';
 
 interface CreateActorParams {
 	id: string;

@@ -1,31 +1,15 @@
-/*
-    Why not just consolidate User + Actor into one schema?
-
-    Well, Users are going to have a lot more data associated with 
-    them compared to Actors. Users have an email, password,  
-    sessions, OAuth apps, notifications, password resets, 
-    they need to be tied to instance logs, and the list goes 
-    on. It's just a bunch of crap that needs to be associated
-    with a User, and not an Actor.
-*/
-
-import { pgTable as table } from 'drizzle-orm/pg-core';
-import * as t from 'drizzle-orm/pg-core';
-import { Actors, createActor, findActorByUsernameAndDomain } from './Actor';
-import { HOST } from '../../config';
-import { getLocalActorId, getLocalActorKeysId, getLocalProfilePage } from '../../activitypub/util';
-import { db } from '..';
+import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
-
-export const Users = table('users', {
-	id: t.uuid().primaryKey().defaultRandom(),
-	actor: t
-		.text()
-		.notNull()
-		.references(() => Actors.id),
-	email: t.text().notNull().unique(),
-	password: t.text().notNull()
-});
+import { HOST } from '$lib/server/config';
+// Schemas
+import { Users } from '$lib/server/db/schema';
+// Helpers
+import { createActor, findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
+import {
+	getLocalActorId,
+	getLocalProfilePage,
+	getLocalActorKeysId
+} from '$lib/server/activitypub/util';
 
 interface CreateUserParams {
 	username: string;

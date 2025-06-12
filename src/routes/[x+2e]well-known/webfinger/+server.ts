@@ -1,6 +1,6 @@
 import { getLocalActorId } from '$lib/server/activitypub/util.js';
 import { HOST, ORIGIN } from '$lib/server/config';
-import { findActorByUsernameAndDomain } from '$lib/server/db/schema/Actor.js';
+import { findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
 import { error, json } from '@sveltejs/kit';
 
 export async function GET({ url }) {

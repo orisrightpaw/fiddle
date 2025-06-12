@@ -1,11 +1,8 @@
-import { pgTable as table } from 'drizzle-orm/pg-core';
-import * as t from 'drizzle-orm/pg-core';
-import { db } from '..';
+import { db } from '$lib/server/db';
 import { eq } from 'drizzle-orm';
-
-export const Domains = table('domains', {
-	id: t.text().primaryKey()
-});
+// Schemas
+import { Domains } from '$lib/server/db/schema';
+// Helpers
 
 interface CreateDomainParams {
 	id: string;

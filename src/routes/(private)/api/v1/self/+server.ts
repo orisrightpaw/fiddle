@@ -1,6 +1,6 @@
 import { HOST } from '$lib/server/config.js';
-import { findActor } from '$lib/server/db/schema/Actor.js';
-import { findUser } from '$lib/server/db/schema/User.js';
+import { findActor } from '$lib/server/db/helpers/Actor';
+import { findUser } from '$lib/server/db/helpers/User';
 import { error, json } from '@sveltejs/kit';
 
 export async function GET({ locals }) {
