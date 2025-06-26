@@ -1,4 +1,3 @@
-import { building } from '$app/environment';
 import { env } from '$env/dynamic/public';
 
 export const TURNSTILE_SITEKEY = env.PUBLIC_TURNSTILE_SITEKEY;

@@ -14,13 +14,14 @@
 	</div>
 	<div class="p-2 flex place-content-between text-lg">
 		<div>
-			<button
-				class="w-9 aspect-square rounded-md bg-zinc-900 hover:bg-zinc-700 cursor-pointer"
-				title="Sweeney buton"
-				aria-label="Sweeney buton"
+			<a
+				href="/settings/profile"
+				class="w-9 aspect-square rounded-md flex place-items-center bg-zinc-900 hover:bg-zinc-700 cursor-pointer"
+				title="Settings"
+				aria-label="Settings"
 			>
-				<img class="h-6 mx-auto" src="/img/demo/users/tim.jpg" alt="" />
-			</button>
+				<i class="ri-settings-3-line mx-auto text-lg"></i>
+			</a>
 		</div>
 		<div>
 			<a

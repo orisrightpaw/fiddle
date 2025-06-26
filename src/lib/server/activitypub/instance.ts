@@ -3,7 +3,12 @@ import { setTimeout } from 'node:timers/promises';
 import { getRequestEvent } from '$app/server';
 import { HOST, ORIGIN } from '$lib/config.server';
 import { getLocalActorId, getLocalActorKeysId } from '$lib/server/activitypub/util';
-import { createActor, findActor, updateActor } from '$lib/server/db/helpers/Actor';
+import {
+	createActor,
+	findActor,
+	shortenActorTypeURI,
+	updateActor
+} from '$lib/server/db/helpers/Actor';
 import { findKeys, createKeys } from '$lib/server/db/helpers/Keys';
 
 let INSTANCE_ACTOR_EXISTS = false;
@@ -92,6 +97,7 @@ export async function fetchActorAndSave(id: string, key?: string) {
 
 	const actor = {
 		id: documentId,
+		type: shortenActorTypeURI(type),
 		domain: documentIdUrl.host,
 		name,
 		url,

@@ -135,3 +135,20 @@ export async function updateActor(params: UpdateActorParams) {
 		return false;
 	}
 }
+
+export function shortenActorTypeURI(uri: string): (typeof ActorTypes.enumValues)[number] {
+	switch (uri) {
+		case 'https://www.w3.org/ns/activitystreams#Application':
+			return 'Application';
+		case 'https://www.w3.org/ns/activitystreams#Group':
+			return 'Group';
+		case 'https://www.w3.org/ns/activitystreams#Organization':
+			return 'Organization';
+		case 'https://www.w3.org/ns/activitystreams#Person':
+			return 'Person';
+		case 'https://www.w3.org/ns/activitystreams#Service':
+			return 'Service';
+		default:
+			return 'Person';
+	}
+}

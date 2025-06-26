@@ -5,7 +5,9 @@ import { findUser } from '$lib/server/db/helpers/User';
 import { error, json } from '@sveltejs/kit';
 
 export async function GET({ locals }) {
-	const user = await findUser({ id: locals.user.id });
+	if (!locals.user?.id) return error(401, 'Unauthorized');
+
+	const user = await findUser({ id: locals.user?.id });
 	if (!user || user.length === 0) return error(401, 'Unauthorized');
 
 	const actor = await findActor({ id: user[0].actor });

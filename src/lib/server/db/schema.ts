@@ -2,6 +2,39 @@ import { pgTable as table } from 'drizzle-orm/pg-core';
 import * as t from 'drizzle-orm/pg-core';
 
 /* 
+    Actors
+*/
+
+export const ActorTypes = t.pgEnum('ActorTypes', [
+	'Application',
+	'Group',
+	'Organization',
+	'Person',
+	'Service'
+]);
+
+export const Actors = table('actors', {
+	// https://www.w3.org/TR/activitypub/#actor-objects
+	id: t.text().primaryKey(),
+	type: ActorTypes().default('Person').notNull(),
+	preferredUsername: t.text().notNull(),
+	name: t.text(),
+	summary: t.text(),
+	url: t.text().default('https://snep.lol').notNull(),
+	icon: t.text(),
+	keys: t
+		.text()
+		.notNull()
+		.references(() => Keys.id),
+	created: t.date().notNull().defaultNow(),
+	// Fiddle
+	domain: t
+		.text()
+		.notNull()
+		.references(() => Domains.id)
+});
+
+/* 
     Activities
 */
 
@@ -36,38 +69,33 @@ export const ActivityTypes = t.pgEnum('ActivityTypes', [
 	'View'
 ]);
 
-/* 
-    Actors
+/*
+    Objects
 */
 
-export const ActorTypes = t.pgEnum('ActorTypes', [
-	'Application',
-	'Group',
-	'Organization',
-	'Person',
-	'Service'
+export const ObjectTypes = t.pgEnum('ObjectTypes', [
+	'Activity',
+	'Article',
+	'Audio',
+	'Collection',
+	'CollectionPage',
+	'Relationship',
+	'Document',
+	'Event',
+	'Image',
+	'IntransitiveActivity',
+	'Note',
+	'Object',
+	'OrderedCollection',
+	'OrderedCollectionPage',
+	'Page',
+	'Place',
+	'Profile',
+	'Question',
+	'Tombstone',
+	'Video',
+	...ActorTypes.enumValues
 ]);
-
-export const Actors = table('actors', {
-	// https://www.w3.org/TR/activitypub/#actor-objects
-	id: t.text().primaryKey(),
-	type: ActorTypes().default('Person').notNull(),
-	preferredUsername: t.text().notNull(),
-	name: t.text(),
-	summary: t.text(),
-	url: t.text().default('https://snep.lol').notNull(),
-	icon: t.text(),
-	keys: t
-		.text()
-		.notNull()
-		.references(() => Keys.id),
-	created: t.date().notNull().defaultNow(),
-	// Fiddle
-	domain: t
-		.text()
-		.notNull()
-		.references(() => Domains.id)
-});
 
 /*
     Attachments

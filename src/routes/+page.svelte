@@ -1,16 +1,28 @@
-<script lang="ts">
+<script>
 </script>
 
-<div class="p-3 bg-zinc-800 rounded-lg grid gap-2">
-	<div>
-		<h1 class="font-bold text-xl">Fiddle UI Demo</h1>
-		<p>This is just a demo of the planned user interface for Fiddle. Design is not final.</p>
-	</div>
-	<ol class="list-decimal list-inside">
-		<li>Click "Login" at the top.</li>
-		<li>Click the "Login" button inside the form. You don't have to fill out any information.</li>
-		<li>Wow you did it</li>
-	</ol>
+<div class="w-screen h-screen overflow-clip flex">
 	<!-- svelte-ignore a11y_media_has_caption -->
-	<video src="/video/video.mp4" controls autoplay muted loop></video>
+	<video
+		class="absolute h-full w-full m-auto blur object-cover pointer-events-none"
+		autoplay
+		loop
+		tabindex="-1"
+		disablepictureinpicture={true}
+		src="https://gay.bucket.snep.lol/want.mp4"
+	></video>
+	<div class="m-auto z-10">
+		<h1 class="text-3xl text-accent font-bold">Fiddle</h1>
+		<p class="text-xl">Federated music tracking.</p>
+		<div class="flex place-content-between">
+			<a href="/login" class="group hover:text-accent">
+				<i class="ri-login-box-line group-hover:text-accent"></i>
+				Login
+			</a>
+			<a href="/register" class="group hover:text-accent">
+				<i class="ri-user-add-line group-hover:text-accent"></i>
+				Register
+			</a>
+		</div>
+	</div>
 </div>
