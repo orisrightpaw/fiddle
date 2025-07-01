@@ -1,7 +1,7 @@
 import { findActor, updateActor } from '$lib/server/db/helpers/Actor.js';
 import { createFile, deleteFile, findFile } from '$lib/server/db/helpers/File.js';
 import { findUser } from '$lib/server/db/helpers/User.js';
-import { deleteObject, getObjectPath, getObjectWriter } from '$lib/server/storage.js';
+import { deleteObject, getObjectWriter } from '$lib/server/storage.js';
 import { fail, redirect } from '@sveltejs/kit';
 import { randomUUID } from 'crypto';
 import { extension } from 'mime-types';

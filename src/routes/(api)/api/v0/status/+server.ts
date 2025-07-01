@@ -4,6 +4,7 @@ import { findUser } from '$lib/server/db/helpers/User';
 import { expand } from '$lib/server/jsonld';
 import { error, json } from '@sveltejs/kit';
 import type { Actor } from '$lib/types.js';
+import { getObjectURL } from '$lib/server/storage.js';
 
 export async function GET({ url, fetch, locals }) {
 	const href = url.searchParams.get('href') as string;
@@ -24,7 +25,7 @@ export async function GET({ url, fetch, locals }) {
 	const [status] = await expand(await response.json());
 
 	const attributedTo = status['https://www.w3.org/ns/activitystreams#attributedTo']?.[0]?.['@id'];
-	const { preferredUsername, name, domain, icon } = await fetchActorAndSave(
+	let { preferredUsername, name, domain, icon } = await fetchActorAndSave(
 		attributedTo,
 		actor[0].keys
 	);
@@ -33,6 +34,8 @@ export async function GET({ url, fetch, locals }) {
 		status['https://www.w3.org/ns/activitystreams#attachment']?.[0]?.[
 			'https://www.w3.org/ns/activitystreams#url'
 		]?.[0]?.['@id'];
+
+	if (icon) icon = getObjectURL(icon);
 
 	const statusData: TemporaryStatusData = {
 		id: '0',

@@ -10,6 +10,10 @@ import {
 	updateActor
 } from '$lib/server/db/helpers/Actor';
 import { findKeys, createKeys } from '$lib/server/db/helpers/Keys';
+import { randomUUID } from 'node:crypto';
+import { extension } from 'mime-types';
+import { createFile } from '../db/helpers/File';
+import { getObjectURL, getObjectWriter } from '../storage';
 
 let INSTANCE_ACTOR_EXISTS = false;
 let INSTANCE_ACTOR_CHECK_LOCK = false;
@@ -69,7 +73,7 @@ export async function fetchActorAndSave(id: string, key?: string) {
 		actorDocument?.['https://www.w3.org/ns/activitystreams#summary']?.[0]?.['@value'];
 	const name: string | undefined =
 		actorDocument?.['https://www.w3.org/ns/activitystreams#name']?.[0]?.['@value'];
-	const icon: string | undefined =
+	let icon: string | undefined =
 		actorDocument?.['https://www.w3.org/ns/activitystreams#icon']?.[0]?.[
 			'https://www.w3.org/ns/activitystreams#url'
 		]?.[0]?.['@id'];
@@ -93,12 +97,42 @@ export async function fetchActorAndSave(id: string, key?: string) {
 	if (typeof publicKeyPem !== 'string')
 		throw new Error("Actor 'publicKey.publicKeyPem' is invalid.");
 
-	const documentIdUrl = new URL(documentId);
+	if (icon) {
+		const response = await fetch(icon);
+		if (!response.body || !response.ok) icon = undefined;
+		else {
+			const newFileId = randomUUID();
+			const newFileExt = extension(response.headers.get('Content-Type')!);
+			const path = `avatars/${newFileId}.${newFileExt}`;
+
+			await createFile({
+				id: newFileId,
+				path,
+				type: response.headers.get('Content-Type') || 'application/octet-stream'
+			});
+
+			const writer = getObjectWriter({
+				path,
+				type: response.headers.get('Content-Type') || 'application/octet-stream'
+			});
+
+			// @ts-expect-error
+			for await (let chunk of response.body) {
+				const buffer = Buffer.from(chunk as Uint8Array);
+				writer.write(buffer);
+				await writer.flush();
+			}
+
+			await writer.end();
+
+			icon = newFileId;
+		}
+	}
 
 	const actor = {
 		id: documentId,
 		type: shortenActorTypeURI(type),
-		domain: documentIdUrl.host,
+		domain: new URL(documentId).host,
 		name,
 		url,
 		icon,
