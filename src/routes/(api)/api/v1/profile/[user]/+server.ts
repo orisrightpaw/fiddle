@@ -4,14 +4,16 @@ import { findActorByUsernameAndDomain } from '$lib/server/db/helpers/Actor';
 import { findKeys } from '$lib/server/db/helpers/Keys';
 import { streamObject } from '$lib/server/jsonld/index.js';
 import { error } from '@sveltejs/kit';
+import { getObjectURL } from '$lib/server/storage.js';
 
-export async function GET({ params }) {
+export async function GET({ params, fetch }) {
 	const results = await findActorByUsernameAndDomain({ username: params.user, domain: HOST });
 	if (results === false || results.length === 0) return error(404);
 
 	const key = await findKeys({ id: results[0].keys });
 	if (key === false || key.length === 0)
 		return error(500, `Missing keys for actor: ${results[0].id}`);
+	if (results[0].icon) results[0].icon = getObjectURL(results[0].icon);
 
 	return await streamObject({
 		'@id': results[0].id,
@@ -52,12 +54,12 @@ export async function GET({ params }) {
 					'@type': 'https://www.w3.org/ns/activitystreams#Image',
 					'https://www.w3.org/ns/activitystreams#url': { '@id': results[0].icon }
 				}
-			: undefined,
-		'https://www.w3.org/ns/activitystreams#image': {
-			'@type': 'https://www.w3.org/ns/activitystreams#Image',
-			'https://www.w3.org/ns/activitystreams#url': {
-				'@id': 'https://social.snep.lol/img/demo/banners/fortnite.jpg'
-			}
-		}
+			: undefined
+		// 'https://www.w3.org/ns/activitystreams#image': {
+		// 	'@type': 'https://www.w3.org/ns/activitystreams#Image',
+		// 	'https://www.w3.org/ns/activitystreams#url': {
+		// 		'@id': 'https://social.snep.lol/img/demo/banners/fortnite.jpg'
+		// 	}
+		// }
 	});
 }

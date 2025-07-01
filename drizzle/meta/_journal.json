@@ -15,6 +15,34 @@
       "when": 1749636063823,
       "tag": "0001_faulty_red_wolf",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1751347851045,
+      "tag": "0002_salty_malice",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1751359851723,
+      "tag": "0003_busy_thor_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1751361865017,
+      "tag": "0004_funny_mandroid",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1751362927306,
+      "tag": "0005_luxuriant_the_watchers",
+      "breakpoints": true
     }
   ]
 }

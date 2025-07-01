@@ -10,7 +10,7 @@
 
 <a href="/profile/{actor.preferredUsername}@{actor.domain}" class="flex h-12 gap-2 group w-fit">
 	<img
-		class="rounded-full aspect-square"
+		class="rounded-full aspect-square object-cover"
 		src={actor.icon}
 		alt="{actor.preferredUsername}@{actor.domain}'s profile icon"
 		title="{actor.preferredUsername}@{actor.domain}'s profile icon"

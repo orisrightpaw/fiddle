@@ -21,7 +21,7 @@ export const Actors = table('actors', {
 	name: t.text(),
 	summary: t.text(),
 	url: t.text().default('https://snep.lol').notNull(),
-	icon: t.text(),
+	icon: t.uuid().references(() => Files.id),
 	keys: t
 		.text()
 		.notNull()
@@ -98,8 +98,15 @@ export const ObjectTypes = t.pgEnum('ObjectTypes', [
 ]);
 
 /*
-    Attachments
+    Files
 */
+
+export const Files = table('files', {
+	id: t.uuid().unique().primaryKey(),
+	path: t.text().notNull(),
+	type: t.text().notNull(),
+	uploaded: t.bigint({ mode: 'number' }).notNull()
+});
 
 /*
     Domains
